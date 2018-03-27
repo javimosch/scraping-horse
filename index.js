@@ -36,7 +36,7 @@ function isParsable(code){
 
 function compileTemplate(src, obj){
 	Object.keys(obj).forEach(k=>{
-		src = src.replace(new RegExp('$'+k, 'g'), obj[k]);
+		src = src.replace(new RegExp('__'+k.toUpperCase()+'__', 'g'), obj[k]);
 	});
 	return src;
 }
@@ -52,22 +52,38 @@ function test(params){
 		if(isSlimerJS()){
 
 			let template = sander.readFileSync('./scrap_slimerjs.js').toString('utf-8');
-			sander.writeFileSync('./slimer-temp/'+shortid.generate()+'.js', compileTemplate(template,{
-				url: "https://localethereum.com/es/profile/yeissone"
+			let jsFileName = shortid.generate()+'.js';
+			let filePath = './slimer-temp/'+jsFileName;
+			let shPath = './'+shortid.generate()+'.sh';
+
+			sander.writeFileSync(filePath, compileTemplate(template,{
+				url: "https://localethereum.com/es/profile/yeissone",
+				selector:'main h1 + div table + h2 + div',
+				wait: 4000,
+				timeout: 10000
 			}));
+
+			sander.writeFileSync(shPath,'npx slimerjs '+filePath);
+			shell.exec('chmod +x '+shPath);
+			
+
+			
+			r = shell.exec(`sh ${shPath}`,{silent:false, verbose:true});
+
+			rimraf.sync(filePath);
+			rimraf.sync(shPath);
+
+			console.log('SLIMER RESULT', r && r.code,  r && r.stdout, r && r.stderr);
+
 			console.log('COMPILED')
 			process.exit(1);
 
-			r = shell.exec(`sh ${path.join(process.cwd(),'slimerjs.sh')}`,{silent:false, verbose:true});
 		}else{
 			r = shell.exec(`node ${path.join(process.cwd(),'scrap.js')} --code="${encodedCode}"`,{silent:false});
 		}
 
 		console.log('\n\nEND');
 
-		if(isSlimerJS()){
-			console.log('SLIMER RESULT', r.code, r.stdout, r.stderr);
-		}
 
 		if(r.code===0){
 			
@@ -95,4 +111,3 @@ function test(params){
 			socket.emit('result:catch', r.stdout);
 		}
 }
-

@@ -1,18 +1,16 @@
 var page = require('webpage').create();
-page.open('$url', function(status) {
-	
+page.open('__URL__', function(status) {
 	(async()=>{
-		let html = await waitFor('main h1 + div table + h2 + div', page);
-		console.log('MAIN IS HERE', html);
+		let html = await waitFor('__SELECTOR__', page, '__WAIT__','__TIMEOUT__');
+		console.log(html);
 		slimer.exit();	
 	})().catch(err=>{
 		console.log(err);
-		slimer.exit();	
+		slimer.exit(1);	
 	});
 });
 
-
-function waitFor(selector, page, waitMilliseconds = 5000, timeout = 15000) {
+function waitFor(selector, page, waitMilliseconds = 5000, timeout = 6000) {
 	let start = Date.now();
 	return new Promise((resolve, reject) => {
 		function loop() {
