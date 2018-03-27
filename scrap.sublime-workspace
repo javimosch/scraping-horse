@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"eval",
+				"evalString"
+			],
+			[
 				"MANDA",
 				"MANDAT_EXPIRED"
 			],
@@ -202,10 +206,6 @@
 			[
 				"get",
 				"getCacheId"
-			],
-			[
-				"eval",
-				"evalInContext"
 			],
 			[
 				"dis",
@@ -411,8 +411,16 @@
 			"file": "index.js",
 			"settings":
 			{
-				"buffer_size": 374,
+				"buffer_size": 1197,
 				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "scrap.js",
+			"settings":
+			{
+				"buffer_size": 988,
 				"line_ending": "Unix"
 			}
 		},
@@ -420,19 +428,9 @@
 			"file": "index.html",
 			"settings":
 			{
-				"buffer_size": 1951,
+				"buffer_size": 4219,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "horseman.js",
-			"settings":
-			{
-				"buffer_size": 962,
-				"encoding": "UTF-8",
-				"line_ending": "Unix",
-				"name": "var Horseman = require('node-horseman');"
 			}
 		}
 	],
@@ -443,10 +441,14 @@
 	"build_varint": "",
 	"command_palette":
 	{
-		"height": 329.0,
-		"last_filter": "prett",
+		"height": 389.0,
+		"last_filter": "form",
 		"selected_items":
 		[
+			[
+				"form",
+				"Format: Javascript"
+			],
 			[
 				"prett",
 				"HTMLPrettify"
@@ -461,10 +463,6 @@
 			],
 			[
 				"from",
-				"Format: Javascript"
-			],
-			[
-				"form",
 				"Format: Javascript"
 			],
 			[
@@ -544,7 +542,7 @@
 				"Snippet: for (…) {…} (Improved Native For-Loop)"
 			]
 		],
-		"width": 412.0
+		"width": 476.0
 	},
 	"console":
 	{
@@ -569,6 +567,9 @@
 	"file_history":
 	[
 		"/Users/javier/git/scrap/package.json",
+		"/Users/javier/git/scrap/.gitignore",
+		"/Users/javier/git/scrap/scrap.js",
+		"/Users/javier/git/scrap/horseman.js",
 		"/Users/javier/Documents/keyboard.js",
 		"/Users/javier/git/scrap/casper.js",
 		"/Users/javier/git/lti-server/server_api/server/schedules/mandat-notifications-schedule.js",
@@ -692,14 +693,11 @@
 		"/Users/javier/git/lti-nuxt/components/RemoteMigration.vue",
 		"/Users/javier/git/lti-nuxt/plugins/codemirror.js",
 		"/Users/javier/git/lti-nuxt/plugins/csv.js",
-		"/Users/javier/git/lti-server/server_api/server/routes/databases.js",
-		"/Users/javier/Library/Application Support/Sublime Text 3/Installed Packages/VueFormatter.sublime-package/VUEFormatter.sublime-settings",
-		"/Users/javier/git/lti-nuxt/plugins/database.js",
-		"/Users/javier/git/lti-server/server_api/server/models/product_list/product_state.js"
+		"/Users/javier/git/lti-server/server_api/server/routes/databases.js"
 	],
 	"find":
 	{
-		"height": 25.0
+		"height": 39.0
 	},
 	"find_in_files":
 	{
@@ -713,6 +711,7 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"errorToJSON"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -745,20 +744,21 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 374,
+						"buffer_size": 1197,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								344,
-								344
+								74,
+								74
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax"
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -769,27 +769,28 @@
 				},
 				{
 					"buffer": 1,
-					"file": "index.html",
+					"file": "scrap.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1951,
+						"buffer_size": 988,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1231,
-								1231
+								33,
+								75
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/HTML/HTML.sublime-syntax"
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 424.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 1,
@@ -797,28 +798,29 @@
 				},
 				{
 					"buffer": 2,
-					"file": "horseman.js",
+					"file": "index.html",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 962,
+						"buffer_size": 4219,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								110,
-								960
+								3734,
+								3734
 							]
 						],
 						"settings":
 						{
-							"auto_name": "var Horseman = require('node-horseman');",
-							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax"
+							"syntax": "Packages/HTML/HTML.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 1879.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 2,
@@ -1398,7 +1400,7 @@
 		[
 			[
 				"",
-				"~/Documents/slti.sublime-workspace"
+				"~/Documents/tmd.sublime-workspace"
 			]
 		],
 		"width": 380.0

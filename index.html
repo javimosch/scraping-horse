@@ -118,15 +118,27 @@ return await test();
       $('.warnings').toggle(true).find('.list').prepend('<div class="warning-item item">'+JSON.stringify(err,null,2)+'<div>');
     });
     socket.on('result:then', res=>{
+      console.log(res);
+        if(typeof res === 'string'){
+          res = {
+            result: res
+          }
+        }
+
         let id = 'res-'+Date.now().toString();
         $('.warnings').toggle(true).find('.list').prepend(`<div>
           <label>Returned at ${moment().format('HH:mm DD/MM/YYYY')}</label>
-          <div id="${id}" class="result-item item json-editor">${JSON.stringify(res,null,2)}<div>
+          <div id="${id}" class="result-item item json-editor"><div>
           </div>`);
+
+
 
         var editor = ace.edit(id);
         editor.setTheme("ace/theme/monokai");
         editor.session.setMode("ace/mode/json");
+
+        let text = JSON.stringify(res,null,2)
+        editor.session.setValue(text);
     });
 
     function test(){
