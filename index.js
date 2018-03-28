@@ -319,7 +319,8 @@ function runScraper(jsCode, socket) {
 			isEmail,
 			isPhone,
 			downloadOutputListCSV,
-			isTelegram
+			isTelegram,
+			$
 		});
 	})().then(res => {
 		socket.emit('result:then', res);
@@ -428,13 +429,13 @@ function getHtmlFromPage(url, selector, waitAtLeast, timeoutAt) {
 		timeout: timeoutAt || 10000
 	}));
 	sander.writeFileSync(shPath, 'npx slimerjs ' + filePath);
-	//console.log('\n\ngetHtmlFromPage exec')
+	console.log('\n\ngetHtmlFromPage exec')
 	shell.exec('chmod +x ' + shPath);
 	var r = shell.exec(`sh ${shPath}`, {
-		silent: true,
-		verbose: false
+		silent: false,
+		verbose: true
 	});
-	//console.log('\n\ngetHtmlFromPage end')
+	console.log('\n\ngetHtmlFromPage end')
 	rimraf.sync(filePath);
 	rimraf.sync(shPath);
 	if (r.code !== 0) {

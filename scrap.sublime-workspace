@@ -5,7 +5,7 @@
 		[
 			[
 				"nextD",
-				"nextDataKeys"
+				"nextData"
 			],
 			[
 				"out",
@@ -419,15 +419,6 @@
 	},
 	"buffers":
 	[
-		{
-			"file": "script_last_version.js",
-			"settings":
-			{
-				"buffer_size": 4773,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		}
 	],
 	"build_system": "",
 	"build_system_choices":
@@ -436,7 +427,7 @@
 	"build_varint": "",
 	"command_palette":
 	{
-		"height": 389.0,
+		"height": 359.0,
 		"last_filter": "form",
 		"selected_items":
 		[
@@ -541,7 +532,7 @@
 				"Snippet: for (…) {…} (Improved Native For-Loop)"
 			]
 		],
-		"width": 476.0
+		"width": 412.0
 	},
 	"console":
 	{
@@ -561,15 +552,20 @@
 	},
 	"expanded_folders":
 	[
-		"/Users/javier/git/scrap"
 	],
 	"file_history":
 	[
-		"/Users/javier/git/scrap/output.json",
-		"/Users/javier/git/scrap/index.js",
-		"/Users/javier/git/scrap/script_last_version.js",
+		"/Users/javier/git/scrap/aceScript.js",
 		"/Users/javier/git/scrap/index.html",
+		"/Users/javier/git/scrap/index.js",
+		"/Users/javier/git/scrap/output.json",
+		"/Users/javier/git/scrap/.gitignore",
+		"/Users/javier/git/scrap/outputLocalbitcoinsScrapeLinks.json",
+		"/Users/javier/git/scrap/localBitcoin.txt",
+		"/Users/javier/git/scrap/localBitcoin_original.txt",
 		"/Users/javier/git/scrap/log.success.txt",
+		"/Users/javier/git/scrap/script_last_version.js",
+		"/Users/javier/git/scrap/main.js",
 		"/Users/javier/git/scrap/log.dataset.txt",
 		"/Users/javier/git/scrap/script_localbitcoin.js",
 		"/Users/javier/git/scrap/log.txt",
@@ -584,7 +580,6 @@
 		"/Users/javier/git/scrap/links-with-data-example.txt",
 		"/Users/javier/git/scrap/localbitcoins.txt",
 		"/Users/javier/git/scrap/paxful.txt",
-		"/Users/javier/git/scrap/.gitignore",
 		"/Users/javier/git/scrap/horseman.js",
 		"/Users/javier/Documents/keyboard.js",
 		"/Users/javier/git/scrap/casper.js",
@@ -687,12 +682,7 @@
 		"/Users/javier/Documents/law-bot.json",
 		"/Users/javier/git/lti-nuxt/pages/login/index.vue",
 		"/Users/javier/git/lti-server/server_api/server/tests/mysql.js",
-		"/Users/javier/git/lti-nuxt/node_modules/brace/mode/mysql.js",
-		"/Users/javier/Documents/keyboard.txt",
-		"/Users/javier/git/lti-nuxt/store/products.js",
-		"/Users/javier/git/lti-client/html/css/style.css",
-		"/Users/javier/git/lti-nuxt/plugins/api.js",
-		"/Users/javier/git/lti-server/server_api/server/models/database.js"
+		"/Users/javier/git/lti-nuxt/node_modules/brace/mode/mysql.js"
 	],
 	"find":
 	{
@@ -710,6 +700,38 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"Merge",
+			"Margin",
+			"126069",
+			"socket.emit",
+			"sohail",
+			"Fini",
+			"Kaybi",
+			"update",
+			"false",
+			"update",
+			"scrapeLocalbitcoinsPageLinks",
+			"split",
+			"first",
+			"firstArrayValue",
+			"isPhone",
+			"split",
+			"forEachOutputItem",
+			"isPhone",
+			"parseLocalbitcoinsPageLinksRawData",
+			"afghanistan/?page=2",
+			"scrapeLocalbitcoinsPageLinks",
+			"+",
+			"column-user",
+			"@",
+			"rimraf",
+			"rimrafa",
+			"updateOutputItem",
+			"runS",
+			"downloadCSV",
+			"downloadOutputListCSV",
+			"readFile",
+			"downloadCSV",
 			"paxful",
 			"asd",
 			"\"asd\"",
@@ -776,39 +798,8 @@
 	"groups":
 	[
 		{
-			"selected": 0,
 			"sheets":
 			[
-				{
-					"buffer": 0,
-					"file": "script_last_version.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 4773,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								4773,
-								4773
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				}
 			]
 		}
 	],
@@ -1405,7 +1396,7 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 269.0,
+	"side_bar_width": 320.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{
