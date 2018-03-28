@@ -32,7 +32,7 @@ const { window } = new JSDOM('<html></html>');
 var $ = require('jquery')(window);
 
 //scrapeLocalbitcoinsPageLinks();
-parseLocalbitcoinsPageLinksRawData();
+//parseLocalbitcoinsPageLinksRawData();
 
 app.get('/', function(req, res) {
 	res.sendFile(__dirname + '/index.html');
@@ -179,9 +179,9 @@ function filterNoResolved(arr, listName, ignore) {
 function forEachOutputItem(listName, handler) {
 	var file = JSON.parse(readFile(`./output.json`));
 	file[listName] = file[listName] || [];
-	console.log('forEachOutputItem START',file[listName].length);
+	//console.log('forEachOutputItem START',file[listName].length);
 	file[listName].forEach(handler);
-	console.log('forEachOutputItem END');
+	//console.log('forEachOutputItem END');
 }
 
 function updateOutputItem(listName, data, next, nextDataKeys,showLog) {
@@ -429,13 +429,13 @@ function getHtmlFromPage(url, selector, waitAtLeast, timeoutAt) {
 		timeout: timeoutAt || 10000
 	}));
 	sander.writeFileSync(shPath, 'npx slimerjs ' + filePath);
-	console.log('\n\ngetHtmlFromPage exec')
+	//console.log('\n\ngetHtmlFromPage exec')
 	shell.exec('chmod +x ' + shPath);
 	var r = shell.exec(`sh ${shPath}`, {
-		silent: false,
-		verbose: true
+		silent: true,
+		verbose: false
 	});
-	console.log('\n\ngetHtmlFromPage end')
+	//console.log('\n\ngetHtmlFromPage end')
 	rimraf.sync(filePath);
 	rimraf.sync(shPath);
 	if (r.code !== 0) {
