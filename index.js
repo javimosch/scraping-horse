@@ -11,6 +11,7 @@ var shortid = require('shortid');
 var rimraf = require('rimraf');
 var fs = require('fs');
 var jsonexport = require('jsonexport/dist');
+var axios = require('axios');
 
 const cheerio = require('cheerio')
 const sequential = require('promise-sequential');
@@ -24,6 +25,14 @@ console.log(r.code, r.stderr, r.stdout, r.code === 0 ? 'Bundle generated' : 'Bun
 
 rimraf.sync('./temp/*.js');
 rimraf.sync('./*.sh');
+
+var jsdom = require('jsdom');
+const { JSDOM } = jsdom;
+const { window } = new JSDOM('<html></html>');
+var $ = require('jquery')(window);
+
+//scrapeLocalbitcoinsPageLinks();
+parseLocalbitcoinsPageLinksRawData();
 
 app.get('/', function(req, res) {
 	res.sendFile(__dirname + '/index.html');
@@ -45,6 +54,102 @@ io.on('connection', function(socket) {
 http.listen(process.env.PORT || 3000, function() {
 	console.log('listening on', process.env.PORT || 3000);
 });
+
+
+
+function parseLocalbitcoinsPageLinksRawData(){
+	try{
+		json = JSON.parse(readFile(`./outputLocalbitcoinsScrapeLinks.json`));
+	}catch(err){
+		return;
+	}
+	let rta = [];
+	Object.keys(json).map(k=>({
+		url:k,
+		raw:json[k].raw
+	})).forEach(item=>{
+		if(!item.raw) return;
+		let res = $(item.raw).find('a').map(function(){
+			return $(this).attr('href');
+		}).toArray().filter(href=>href.indexOf('accounts/profile')!==-1)
+		rta = rta.concat(res);
+		//console.log('Collecting accounts from ',item.url);
+	});
+	rta = _.uniq(rta);
+	rta = rta.map(url=>`https://localbitcoins.com${url}`);
+	
+	let original = _.uniq(readFileAndSplitLines(`./localBitcoin_original.txt`).concat(rta));
+	console.log('localbitcoins: Original links', original.length);
+	console.log('localbitcoins: Original links without duplication', _.uniq(original).length);
+
+	console.log('localbitcoins: New links', rta.length);
+	rta = _.uniq(readFileAndSplitLines(`./localBitcoin.txt`).concat(rta));
+	console.log('localbitcoins: Total links', rta.length);
+
+	sander.writeFileSync('./localBitcoin.txt', rta.join('\n'));
+}
+
+async function scrapeLocalbitcoinsPageLinks() {
+	let countryCodes = await scrapeCountryCodes();
+	var json;
+	try{
+		json = JSON.parse(readFile(`./outputLocalbitcoinsScrapeLinks.json`));
+	}catch(err){
+		json = {};
+	}
+	//_.take(countryCodes,10)
+	countryCodes.forEach(({name, code})=>{
+		//if(!code) return;
+		for(var x=1;x<=10;x++){
+			let qs = x>=2 ? '?page='+x : '';
+
+			let url = `https://localbitcoins.com/es/comprar-bitcoins-online/${code.trim()}/${name.trim()}/${qs}`;
+			//if(json[url] && json[url].scraped) return;
+			console.log('Scraping',url);
+			let html = getHtmlFromPage(url, '.table-bitcoins', 2000, 3000);
+			if(!html && x>=2) return;
+			json[url]={
+				raw:html,
+				scraped:true
+			};
+			sander.writeFileSync('./outputLocalbitcoinsScrapeLinks.json', JSON.stringify(json, null, 2));
+
+		}
+
+		
+		
+	});
+}
+
+async function scrapeCountryCodes() {
+	var json;
+	try{
+		json = JSON.parse(readFile(`./countryCodes.json`));
+		return Object.keys(json).map(k=>({
+			name:k,
+			code: json[k]
+		}));
+	}catch(err){
+		json = {};
+	}
+	let res = await axios.get('http://www.nationsonline.org/oneworld/country_code_list.htm')
+	let rta = cheerio.load(res.data).root().find('body #codelist tbody tr');
+	rta = rta.map(function() {
+		let tds = cheerio(this).html();
+		let name = cheerio(cheerio(tds).get(3)).find('a').html();
+		let code = cheerio(cheerio(tds).get(3)).next().html()
+		if (!name) return null;
+		return {
+			name: name.toString().toLowerCase(),
+			code: code
+		}
+	}).get().filter(d => d !== null && d.name.indexOf(' ') === -1);
+	rta.forEach(c=>{
+		json[c.name]=c.code
+	});
+	sander.writeFileSync('./countryCodes.json', JSON.stringify(json, null, 2));
+	rta;
+}
 
 function runScraperProcess() {
 	//let encodedCode = base64.encode(JSON.stringify(params.js));
@@ -74,7 +179,9 @@ function filterNoResolved(arr, listName, ignore) {
 function forEachOutputItem(listName, handler) {
 	var file = JSON.parse(readFile(`./output.json`));
 	file[listName] = file[listName] || [];
+	console.log('forEachOutputItem START',file[listName].length);
 	file[listName].forEach(handler);
+	console.log('forEachOutputItem END');
 }
 
 function updateOutputItem(listName, data, next, nextDataKeys) {
@@ -84,12 +191,17 @@ function updateOutputItem(listName, data, next, nextDataKeys) {
 		file[listName].forEach((d, i) => {
 			if (d.link == data.link) {
 				for (var x in data) {
-					if(d[x]!=='' && data[x]===''){
+
+					if (d[x] !== '' && data[x] === '') {
 						//
-					}else{
-						d[x] = data[x];	
+					} else {
+						d[x] = data[x];
 					}
-					
+
+					//if(x==='email' && !d[x]) d[x] = '';
+					//if(x==='phone' && !d[x]) d[x] = '';
+					//if(x==='telegram' && !d[x]) d[x] = '';
+
 				}
 			}
 		});
@@ -97,8 +209,7 @@ function updateOutputItem(listName, data, next, nextDataKeys) {
 		file[listName].push(data);
 	}
 	sander.writeFileSync('./output.json', JSON.stringify(file, null, 2));
-	console.log('updateOutputItem', data);
-
+	console.log('Updating', data.link);
 	if (next) {
 		let nextData = {};
 		if (nextDataKeys === undefined) {
@@ -106,7 +217,9 @@ function updateOutputItem(listName, data, next, nextDataKeys) {
 		} else {
 			nextDataKeys.forEach(k => nextData[k] = data[k]);
 		}
-		next(nextData);
+		if(nextData.email ||nextData.phone||nextData.telegram){
+			next(nextData);
+		}
 	}
 
 }
@@ -119,10 +232,10 @@ function getSelectorInnerHtmlFromRawHTML(raw, selector) {
 	}
 }
 
-function getMergedLists(json, lists, keys){
+function getMergedLists(json, lists, keys) {
 	var res = [];
 	lists.forEach(name => {
-		let data = json[name]|| [];
+		let data = json[name] || [];
 		if (keys) {
 			data = data.map(d => {
 				let o = {};
@@ -132,10 +245,10 @@ function getMergedLists(json, lists, keys){
 				return o;
 			});
 		}
-		console.log('Mergin list',name,'with',data.length,'records');
+		console.log('Mergin list', name, 'with', data.length, 'records');
 		res = res.concat(data);
 	});
-	console.log('Merge res',res.length);
+	console.log('Merge res', res.length);
 	return res;
 }
 
@@ -145,12 +258,28 @@ function createSocketEventsHandlers(socket) {
 			progressBar.update(step);
 			socket.emit('result:step', step + '/' + max);
 		},
-		downloadOutputListCSV: (name, listName, keys, delimiter) => {
+		downloadOutputListCSV: (enabled, name, listName, keys, delimiter, conditionKeys) => {
 			let data = JSON.parse(readFile(`./output.json`));
-			if (listName === '*'){
+			if (listName === '*') {
 				data = getMergedLists(data, Object.keys(data), keys);
-			}else{
+			} else {
 				data = getMergedLists(data, [listName], keys);
+			}
+			if(conditionKeys!==undefined){
+				data = data.filter(d=>{
+					for(var x in conditionKeys){
+						if(!d[conditionKeys[x]]) return false;
+					}
+					return true;
+				});
+			}else{
+				data = data.filter(d=>{
+					if(!d.email && !d.phone && !d.telegram) return false;
+					return true;
+				});
+			}
+			if(!enabled){
+				return data.length;
 			}
 			socket.emit('downloadCSV', {
 				name,
@@ -158,6 +287,7 @@ function createSocketEventsHandlers(socket) {
 				delimiter
 			});
 			console.log('downloadCSV emit to client', (data).length, 'records');
+			return data.length;
 		}
 	}
 }
@@ -207,13 +337,26 @@ function runScraper(jsCode, socket) {
 	//}
 }
 
-function firstArrayValue(arr, defaultValue) {
-	return (arr.length > 0 && arr[0]) || (defaultValue || '');
+function firstArrayValue(arr, transformHandler,defaultValue) {
+	if(arr.length > 0) {
+		let v = arr[0] || defaultValue || '';
+		if(transformHandler){
+			return transformHandler(v);
+		}else{
+			return v || defaultValue || '';	
+		}
+	}else{
+		return defaultValue || '';
+	}
 }
 
 function isPhone(str) {
-	var patt = new RegExp(/^\+?1?\s*?\(?\d{3}(?:\)|[-|\s])?\s*?\d{3}[-|\s]?\d{4}$/);
-	return patt.test(str);
+	var re1 = new RegExp(/^\+?1?\s*?\(?\d{3}(?:\)|[-|\s])?\s*?\d{3}[-|\s]?\d{4}$/);
+	let re2 = new RegExp(/^(\+\d{1,3}[- ]?)?\d{10}$/);
+	let re3 = new RegExp(/^(\+?\d{1,4}[\s-])?(?!0+\s+,?$)\d{10}\s*,?$/);
+	let re4 = new RegExp(/^(?:\+?88)?01[15-9]\d{8}$/);
+	let isNumberWithLenGte = (d)=>!isNaN(str) && str.length > d;
+	return re1.test(str)||re2.test(str)||re3.test(str)||re4.test(str)||isNumberWithLenGte(6);
 }
 
 function isEmail(email) {
@@ -221,8 +364,8 @@ function isEmail(email) {
 	return re.test(String(email).toLowerCase());
 }
 
-function isTelegram(str){
-    return new RegExp(/@([A-z]|[0-9]){6,32}$/).test(str);
+function isTelegram(str) {
+	return new RegExp(/@([A-z]|[0-9]){6,32}$/).test(str);
 }
 
 function evalInContext(js, ctx) {
@@ -250,7 +393,19 @@ function isParsable(code) {
 }
 
 function splitWords(raw) {
-	return raw.replace(new RegExp('<br>', 'g'), ' ').replace(new RegExp('</p>', 'g'), ' ').replace(new RegExp('<', 'g'), ' ').split(' ');
+	return raw
+		.replace(new RegExp('<br>', 'g'), ' ')
+		.replace(new RegExp('</p>', 'g'), ' ')
+		.replace(new RegExp('<', 'g'), ' ')
+		.replace(new RegExp('=', 'g'), ' ')
+		.replace(new RegExp('/', 'g'), ' ')
+		.replace(new RegExp('\n', 'g'), ' ')
+		.replace(new RegExp(':', 'g'), ' ')
+		//.replace(new RegExp('.', 'g'), ' ')
+		//.replace(new RegExp('&', 'g'), ' ')
+		//.replace(new RegExp('(', 'g'), '')
+		//.replace(new RegExp(')', 'g'), '')
+		.trim().split(' ').map(w => w.trim());
 }
 
 function compileTemplate(src, obj) {
@@ -273,13 +428,13 @@ function getHtmlFromPage(url, selector, waitAtLeast, timeoutAt) {
 		timeout: timeoutAt || 10000
 	}));
 	sander.writeFileSync(shPath, 'npx slimerjs ' + filePath);
-	console.log('\n\ngetHtmlFromPage exec')
+	//console.log('\n\ngetHtmlFromPage exec')
 	shell.exec('chmod +x ' + shPath);
 	var r = shell.exec(`sh ${shPath}`, {
-		silent: false,
-		verbose: true
+		silent: true,
+		verbose: false
 	});
-	console.log('\n\ngetHtmlFromPage end')
+	//console.log('\n\ngetHtmlFromPage end')
 	rimraf.sync(filePath);
 	rimraf.sync(shPath);
 	if (r.code !== 0) {

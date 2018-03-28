@@ -1,14 +1,22 @@
+
 //comment/uncomment the follow line to process each website
 
 const LIST_NAME = 'localBitcoin';
 //const LIST_NAME = 'paxful';
 //const LIST_NAME = 'localethereum';
 
-const ONLY_RUN_PARSERS = true;
+const ONLY_RUN_PARSERS = false;
+const IGNORE_RESOLVED = false;
 const EXPORT_CSV=false;
-const EXPORT_CSV_DELIMITER="#";
+const EXPORT_CSV_DELIMITER=",";
 const EXPORT_CSV_NAME = LIST_NAME + '.csv';
-const EXPORT_ALL_LISTS = true;
+const EXPORT_ALL_LISTS = false;
+
+const EXPORT_KEYS = ['username','email','phone','telegram'];
+//const EXPORT_KEYS = ['email'];
+
+const EXPORT_CONDITION_KEY=['email'];//only records with email
+//const EXPORT_CONDITION_KEY=[];//any record with at least one field
         
 var getRawHtml = {
     localBitcoin:url=>{
@@ -28,7 +36,7 @@ var getRawHtml = {
 
 var getParser = {
     localBitcoin:{
-        username:(raw)=>{return '';},
+        username:(raw,url)=>{return url.split('profile/')[1].replace('/','');},
         email:(raw)=>{
             return firstArrayValue(splitWords(raw).filter(word=>{
                 return isEmail(word);
@@ -36,8 +44,13 @@ var getParser = {
         },
         phone:(raw)=>{
             return firstArrayValue(splitWords(raw).filter(word=>{
+                word = word.replace(/\./g,' ');
+                word = word.replace(new RegExp('-', 'g'), '');
+                //if(word.indexOf('016012')!==-1){
+                  //  console.log('PHONE',word,isPhone(word))
+                //}
                 return isPhone(word);
-            }));
+            }),w=>w.replace(/\./g,''));
         },
         telegram:(raw)=>{
             return firstArrayValue(splitWords(raw).filter(word=>{
@@ -83,10 +96,10 @@ var getParser = {
     }
 };
 
+
 //script function should return a promise
 function script(){
     return new Promise((resolve,reject)=>{
-        const IGNORE_RESOLVED = true;
         var resultItems = [];
         var arr = readFileAndSplitLines(LIST_NAME+'.txt');
         //arr = _.take(arr,5);
@@ -100,10 +113,10 @@ function script(){
                 if(!data.raw) return;
                 updateOutputItem(LIST_NAME,{
                     link: data.link,
-                    username:getParser[LIST_NAME].username(data.raw),
-                    email:getParser[LIST_NAME].email(data.raw),
-                    phone:getParser[LIST_NAME].phone(data.raw),
-                    telegram:getParser[LIST_NAME].telegram(data.raw),
+                    username:getParser[LIST_NAME].username(data.raw,data.link),
+                    email:getParser[LIST_NAME].email(data.raw,data.link),
+                    phone:getParser[LIST_NAME].phone(data.raw,data.link),
+                    telegram:getParser[LIST_NAME].telegram(data.raw,data.link),
                     raw: data.raw,
                     resolved:true
                 }, (data)=> resultItems.push(data),['username','email','phone','telegram']);
@@ -124,10 +137,10 @@ function script(){
                 }else{
                     updateOutputItem(LIST_NAME,{
                         link: url,
-                        username:getParser[LIST_NAME].username(raw),
-                        email:getParser[LIST_NAME].email(raw),
-                        phone:getParser[LIST_NAME].phone(raw),
-                        telegram:getParser[LIST_NAME].telegram(raw),
+                        username:getParser[LIST_NAME].username(raw,url),
+                        email:getParser[LIST_NAME].email(raw,url),
+                        phone:getParser[LIST_NAME].phone(raw,url),
+                        telegram:getParser[LIST_NAME].telegram(raw,url),
                         raw: raw,
                         resolved:true
                     }, (data)=> resultItems.push(data),['username','email','phone','telegram']);
@@ -136,18 +149,22 @@ function script(){
             });
             progressBar.stop();
         }
-        if(EXPORT_CSV){
-            downloadOutputListCSV(EXPORT_CSV_NAME,EXPORT_ALL_LISTS?'*':LIST_NAME,['username','email','phone','telegram'], EXPORT_CSV_DELIMITER);
-        }
+        let totalExportedRecords = 0;
+        
+             totalExportedRecords =  downloadOutputListCSV(EXPORT_CSV, EXPORT_CSV_NAME,EXPORT_ALL_LISTS?'*':LIST_NAME,EXPORT_KEYS, EXPORT_CSV_DELIMITER, EXPORT_CONDITION_KEY);
+        
         resolve({
             originalLength: arr.length,
             lengthWithoutDuplication: _.uniq(arr).length,
             alreadyResolvedLength: alreadyResolvedLength,
             lengthSkiped: skipedLength,
             lengthProcessed: toProcess.length,
-            totalEmails: resultItems.filter(i=>i.email!=='').length,
-            totalPhones: resultItems.filter(i=>i.phone!=='').length,
-            totalTelegrams: resultItems.filter(i=>i.telegram!=='').length,
+            totalAvailable:alreadyResolvedLength+toProcess.length,
+            totalEmails: resultItems.filter(i=>!!i.email).length,
+            totalPhones: resultItems.filter(i=>!!i.phone).length,
+            totalTelegrams: resultItems.filter(i=>!!i.telegram).length,
+            totalExportedRecords: totalExportedRecords,
+            itemsWithAtLeastOneField: resultItems.length,
             items: resultItems
         });
     });
@@ -159,6 +176,11 @@ function script(){
 
 
   
+
+
+
+
+
 
 
 
