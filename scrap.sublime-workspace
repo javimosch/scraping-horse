@@ -4,6 +4,22 @@
 		"selected_items":
 		[
 			[
+				"nextD",
+				"nextDataKeys"
+			],
+			[
+				"out",
+				"output"
+			],
+			[
+				"readFile",
+				"readFile"
+			],
+			[
+				"std",
+				"stdout"
+			],
+			[
 				"eval",
 				"evalString"
 			],
@@ -228,10 +244,6 @@
 				"jsonParser"
 			],
 			[
-				"out",
-				"output"
-			],
-			[
 				"scr",
 				"script"
 			],
@@ -408,27 +420,10 @@
 	"buffers":
 	[
 		{
-			"file": "index.js",
+			"file": "script_last_version.js",
 			"settings":
 			{
-				"buffer_size": 1197,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "scrap.js",
-			"settings":
-			{
-				"buffer_size": 988,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "index.html",
-			"settings":
-			{
-				"buffer_size": 4219,
+				"buffer_size": 4773,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -450,6 +445,14 @@
 				"Format: Javascript"
 			],
 			[
+				"fomr",
+				"Format: Javascript"
+			],
+			[
+				"json",
+				"Set Syntax: JSON"
+			],
+			[
 				"prett",
 				"HTMLPrettify"
 			],
@@ -463,10 +466,6 @@
 			],
 			[
 				"from",
-				"Format: Javascript"
-			],
-			[
-				"fomr",
 				"Format: Javascript"
 			],
 			[
@@ -566,9 +565,26 @@
 	],
 	"file_history":
 	[
+		"/Users/javier/git/scrap/output.json",
+		"/Users/javier/git/scrap/index.js",
+		"/Users/javier/git/scrap/script_last_version.js",
+		"/Users/javier/git/scrap/index.html",
+		"/Users/javier/git/scrap/log.success.txt",
+		"/Users/javier/git/scrap/log.dataset.txt",
+		"/Users/javier/git/scrap/script_localbitcoin.js",
+		"/Users/javier/git/scrap/log.txt",
+		"/Users/javier/git/scrap/emails.txt",
+		"/Users/javier/git/scrap/scrap_slimerjs.js",
+		"/Users/javier/git/scrap/scrap-dether-1.js",
+		"/Users/javier/git/scrap/slimerjs.sh",
 		"/Users/javier/git/scrap/package.json",
-		"/Users/javier/git/scrap/.gitignore",
 		"/Users/javier/git/scrap/scrap.js",
+		"/Users/javier/git/scrap/localethereum.txt",
+		"/Users/javier/git/scrap/output copy.json",
+		"/Users/javier/git/scrap/links-with-data-example.txt",
+		"/Users/javier/git/scrap/localbitcoins.txt",
+		"/Users/javier/git/scrap/paxful.txt",
+		"/Users/javier/git/scrap/.gitignore",
 		"/Users/javier/git/scrap/horseman.js",
 		"/Users/javier/Documents/keyboard.js",
 		"/Users/javier/git/scrap/casper.js",
@@ -676,24 +692,7 @@
 		"/Users/javier/git/lti-nuxt/store/products.js",
 		"/Users/javier/git/lti-client/html/css/style.css",
 		"/Users/javier/git/lti-nuxt/plugins/api.js",
-		"/Users/javier/git/lti-server/server_api/server/models/database.js",
-		"/Users/javier/git/lti-nuxt/plugins/configApi.js",
-		"/Users/javier/git/lti-nuxt/components/RemoteSelect.vue",
-		"/Users/javier/git/lti-nuxt/mixins/Lodash.js",
-		"/Users/javier/git/lti-nuxt/components/JsEditor.vue",
-		"/Users/javier/git/lti-server/server_api/server/models/exportMappings.js",
-		"/Users/javier/git/lti-nuxt/components/ExportMappingColumn.vue",
-		"/Users/javier/git/lti-server/server_api/server/models/config.js",
-		"/Users/javier/git/lti-server/server_api/db/Dockerfile",
-		"/Users/javier/git/lti-server/server_api/server/helpers/auth.js",
-		"/Users/javier/git/lti-server/server_api/server/tools/authTools.js",
-		"/Users/javier/git/lti-nuxt/plugins/vuejs-noty.js",
-		"/Users/javier/git/lti-server/server_api/server/routes/config.js",
-		"/Users/javier/git/lti-server/server_api/server/models/client/client.js",
-		"/Users/javier/git/lti-nuxt/components/RemoteMigration.vue",
-		"/Users/javier/git/lti-nuxt/plugins/codemirror.js",
-		"/Users/javier/git/lti-nuxt/plugins/csv.js",
-		"/Users/javier/git/lti-server/server_api/server/routes/databases.js"
+		"/Users/javier/git/lti-server/server_api/server/models/database.js"
 	],
 	"find":
 	{
@@ -711,6 +710,48 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"paxful",
+			"asd",
+			"\"asd\"",
+			"paxful",
+			"isEmail",
+			"replace",
+			"first",
+			"updateOutputItem",
+			".com",
+			"gmail",
+			"filterNoResolved",
+			".com",
+			"@",
+			"Email",
+			"gmail",
+			"warning-item",
+			"Email",
+			"email",
+			"gmail",
+			"writeFile",
+			"updateOutputItem",
+			"onResolve",
+			"test()",
+			"socket",
+			"raw",
+			".com",
+			"sell",
+			"mail:",
+			"helisu",
+			"mail:",
+			"Email",
+			"lbc",
+			"Email",
+			"hotmail",
+			"gmail.com",
+			"#x430;)gmail.com",
+			"mail.com",
+			"gmail.com",
+			"+",
+			"gmail",
+			"err",
+			"Keeping it Digital!",
 			"errorToJSON"
 		],
 		"highlight": true,
@@ -740,90 +781,32 @@
 			[
 				{
 					"buffer": 0,
-					"file": "index.js",
+					"file": "script_last_version.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1197,
+						"buffer_size": 4773,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								74,
-								74
+								4773,
+								4773
 							]
 						],
 						"settings":
 						{
 							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
-							"translate_tabs_to_spaces": false
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "scrap.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 988,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								33,
-								75
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "index.html",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 4219,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								3734,
-								3734
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/HTML/HTML.sublime-syntax",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 1879.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
 					"type": "text"
 				}
 			]
@@ -1400,7 +1383,7 @@
 		[
 			[
 				"",
-				"~/Documents/tmd.sublime-workspace"
+				"~/Documents/slti.sublime-workspace"
 			]
 		],
 		"width": 380.0
@@ -1422,7 +1405,7 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 188.0,
+	"side_bar_width": 269.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{

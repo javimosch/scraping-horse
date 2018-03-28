@@ -1,1 +1,0 @@
-npx slimerjs scrap_slimerjs.js
