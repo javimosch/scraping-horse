@@ -32,7 +32,7 @@ const { window } = new JSDOM('<html></html>');
 var $ = require('jquery')(window);
 
 //scrapeLocalbitcoinsPageLinks();
-//parseLocalbitcoinsPageLinksRawData();
+parseLocalbitcoinsPageLinksRawData();
 
 app.get('/', function(req, res) {
 	res.sendFile(__dirname + '/index.html');
@@ -78,7 +78,7 @@ function parseLocalbitcoinsPageLinksRawData(){
 	rta = _.uniq(rta);
 	rta = rta.map(url=>`https://localbitcoins.com${url}`);
 	
-	let original = _.uniq(readFileAndSplitLines(`./localBitcoin_original.txt`).concat(rta));
+	let original = readFileAndSplitLines(`./localBitcoin_original.txt`);
 	console.log('localbitcoins: Original links', original.length);
 	console.log('localbitcoins: Original links without duplication', _.uniq(original).length);
 

@@ -5,7 +5,7 @@ const LIST_NAME = 'localBitcoin';
 //const LIST_NAME = 'paxful';
 //const LIST_NAME = 'localethereum';
 
-const ONLY_RUN_PARSERS = false;
+const ONLY_RUN_PARSERS = true;
 const IGNORE_RESOLVED = false;
 const EXPORT_CSV=false;
 const EXPORT_CSV_DELIMITER=",";
@@ -46,9 +46,6 @@ var getParser = {
             return firstArrayValue(splitWords(raw).filter(word=>{
                 word = word.replace(/\./g,' ');
                 word = word.replace(new RegExp('-', 'g'), '');
-                //if(word.indexOf('016012')!==-1){
-                  //  console.log('PHONE',word,isPhone(word))
-                //}
                 return isPhone(word);
             }),w=>w.replace(/\./g,''));
         },
@@ -143,7 +140,7 @@ function script(){
                         telegram:getParser[LIST_NAME].telegram(raw,url),
                         raw: raw,
                         resolved:true
-                    }, (data)=> resultItems.push(data),['username','email','phone','telegram']);
+                    }, (data)=> resultItems.push(data),['username','email','phone','telegram'],true);
                 }
                 progressBarUpdate(index+1, toProcess.length);
             });
