@@ -11007,6 +11007,72 @@
       "resolved": true,
       "skiped": true,
       "err": "unable to find the right dom element"
+    },
+    {
+      "link": "https://localbitcoins.com/accounts/profile/diezvivar/",
+      "username": "diezvivar",
+      "email": "",
+      "phone": "",
+      "telegram": "",
+      "raw": "\n        <p>I am a reputated trader implicated in bitcoin economy .<br>Usually i am online  all the day.<br></p>\n        ",
+      "resolved": true
+    },
+    {
+      "link": "https://localbitcoins.com/accounts/profile/mago5027/",
+      "username": "mago5027",
+      "email": "",
+      "phone": "",
+      "telegram": "@mago5027",
+      "raw": "\n        <p>INTERBIT SISTEMAS SL<br>Telegram @mago5027<br>Registered company in Spain.</p>\n        ",
+      "resolved": true
+    },
+    {
+      "link": "https://localbitcoins.com/accounts/profile/goncalves.daniel/",
+      "resolved": true,
+      "skiped": true,
+      "err": "unable to find the right dom element"
+    },
+    {
+      "link": "https://localbitcoins.com/accounts/profile/imgocom/",
+      "username": "imgocom",
+      "email": "",
+      "phone": "653-459-459",
+      "telegram": "@fedxfed",
+      "raw": "\n        <p>Company: IMGO COINS SL</p>\n\n<p>Telegram: @fedxfed<br>WhatsApp: +34 653-459-459 (Lunes a Viernes, no se atiende llamadas)</p>\n\n<p>I speak Spanish, English, Russian.</p>\n        ",
+      "resolved": true
+    },
+    {
+      "link": "https://localbitcoins.com/accounts/profile/VitaliyDushnyy/",
+      "username": "VitaliyDushnyy",
+      "email": "",
+      "phone": "+34684202016",
+      "telegram": "",
+      "raw": "\n        <p>Smirnov &amp; Smirnov S.L. Professional trading company in Spain<br>Clients service by Whatsapp: +34684202016</p>\n        ",
+      "resolved": true
+    },
+    {
+      "link": "https://localbitcoins.com/accounts/profile/TuBitCoins.com/",
+      "resolved": true,
+      "skiped": true,
+      "err": "unable to find the right dom element"
+    },
+    {
+      "link": "https://localbitcoins.com/accounts/profile/JLJeronimo/",
+      "resolved": true,
+      "skiped": true,
+      "err": "unable to find the right dom element"
+    },
+    {
+      "link": "https://localbitcoins.com/accounts/profile/chorrus/",
+      "resolved": true,
+      "skiped": true,
+      "err": "unable to find the right dom element"
+    },
+    {
+      "link": "https://localbitcoins.com/accounts/profile/Ishtiaqraza/",
+      "resolved": true,
+      "skiped": true,
+      "err": "unable to find the right dom element"
     }
   ],
   "paxful": [
