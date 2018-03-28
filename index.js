@@ -256,7 +256,7 @@ function createSocketEventsHandlers(socket) {
 	return {
 		progressBarUpdate: (step, max) => {
 			progressBar.update(step);
-			socket.emit('result:step', step + '/' + max);
+			io.emit('result:step', step + '/' + max);
 		},
 		downloadOutputListCSV: (enabled, name, listName, keys, delimiter, conditionKeys) => {
 			let data = JSON.parse(readFile(`./output.json`));
