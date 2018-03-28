@@ -32,7 +32,7 @@ const { window } = new JSDOM('<html></html>');
 var $ = require('jquery')(window);
 
 //scrapeLocalbitcoinsPageLinks();
-parseLocalbitcoinsPageLinksRawData();
+//parseLocalbitcoinsPageLinksRawData();
 
 app.get('/', function(req, res) {
 	res.sendFile(__dirname + '/index.html');
@@ -184,7 +184,7 @@ function forEachOutputItem(listName, handler) {
 	console.log('forEachOutputItem END');
 }
 
-function updateOutputItem(listName, data, next, nextDataKeys) {
+function updateOutputItem(listName, data, next, nextDataKeys,showLog) {
 	var file = JSON.parse(readFile(`./output.json`));
 	file[listName] = file[listName] || [];
 	if (file[listName].filter(d => d.link == data.link).length > 0) {
@@ -198,10 +198,7 @@ function updateOutputItem(listName, data, next, nextDataKeys) {
 						d[x] = data[x];
 					}
 
-					//if(x==='email' && !d[x]) d[x] = '';
-					//if(x==='phone' && !d[x]) d[x] = '';
-					//if(x==='telegram' && !d[x]) d[x] = '';
-
+			
 				}
 			}
 		});
@@ -209,7 +206,9 @@ function updateOutputItem(listName, data, next, nextDataKeys) {
 		file[listName].push(data);
 	}
 	sander.writeFileSync('./output.json', JSON.stringify(file, null, 2));
-	console.log('Updating', data.link);
+	if(showLog){
+		console.log('Updating', data.link);
+	}
 	if (next) {
 		let nextData = {};
 		if (nextDataKeys === undefined) {
@@ -245,10 +244,8 @@ function getMergedLists(json, lists, keys) {
 				return o;
 			});
 		}
-		console.log('Mergin list', name, 'with', data.length, 'records');
 		res = res.concat(data);
 	});
-	console.log('Merge res', res.length);
 	return res;
 }
 
@@ -394,18 +391,21 @@ function isParsable(code) {
 
 function splitWords(raw) {
 	return raw
-		.replace(new RegExp('<br>', 'g'), ' ')
-		.replace(new RegExp('</p>', 'g'), ' ')
-		.replace(new RegExp('<', 'g'), ' ')
-		.replace(new RegExp('=', 'g'), ' ')
-		.replace(new RegExp('/', 'g'), ' ')
-		.replace(new RegExp('\n', 'g'), ' ')
-		.replace(new RegExp(':', 'g'), ' ')
+		.replace(new RegExp('<br>', 'g'), '###')
+		.replace(new RegExp('</p>', 'g'), '###')
+		.replace(new RegExp('<', 'g'), '###')
+		.replace(new RegExp('=', 'g'), '###')
+		.replace(new RegExp('/', 'g'), '###')
+		.replace(new RegExp('\n', 'g'), '###')
+		.replace(new RegExp(':', 'g'), '###')
+		.replace(new RegExp(';', 'g'), '###')
+		.replace(new RegExp(',', 'g'), '###')
+		.replace(new RegExp(' ', 'g'), '')
 		//.replace(new RegExp('.', 'g'), ' ')
 		//.replace(new RegExp('&', 'g'), ' ')
 		//.replace(new RegExp('(', 'g'), '')
 		//.replace(new RegExp(')', 'g'), '')
-		.trim().split(' ').map(w => w.trim());
+		.trim().split('###').map(w => w.trim());
 }
 
 function compileTemplate(src, obj) {
