@@ -55,25 +55,17 @@
 <body>
 
 	<div id="editor">
-
-//comment/uncomment the follow line to process each website
-
+//localBitcoin paxful localethereum
 const LIST_NAME = 'localBitcoin';
-//const LIST_NAME = 'paxful';
-//const LIST_NAME = 'localethereum';
-
 const ONLY_RUN_PARSERS = true;
 const IGNORE_RESOLVED = false;
 const EXPORT_CSV=false;
 const EXPORT_CSV_DELIMITER=",";
 const EXPORT_CSV_NAME = LIST_NAME + '.csv';
 const EXPORT_ALL_LISTS = false;
-
 const EXPORT_KEYS = ['username','email','phone','telegram'];
-//const EXPORT_KEYS = ['email'];
+const EXPORT_CONDITION_KEY=['email'];
 
-const EXPORT_CONDITION_KEY=['email'];//only records with email
-//const EXPORT_CONDITION_KEY=[];//any record with at least one field
         
 var getRawHtml = {
     localBitcoin:url=>{
@@ -227,35 +219,6 @@ function script(){
 
 
   
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 </div>

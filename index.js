@@ -32,7 +32,7 @@ const { window } = new JSDOM('<html></html>');
 var $ = require('jquery')(window);
 
 //scrapeLocalbitcoinsPageLinks();
-//parseLocalbitcoinsPageLinksRawData();
+parseLocalbitcoinsPageLinksRawData();
 
 app.get('/', function(req, res) {
 	res.sendFile(__dirname + '/index.html');
