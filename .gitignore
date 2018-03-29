@@ -5,3 +5,5 @@ bundle.js
 *tmp-browserify*
 *arn-error*
 log.txt
+public/bundle.js
+*bundle.js*

@@ -17,9 +17,7 @@ This project is intended to be used locally
 ````
 PORT=3001 yarn start
 ````
-
-
-
+- dbURI
 
 ### How it works
 

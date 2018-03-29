@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "start": "node index.js"
+    "dev": "npx nodemon --exec 'node src/index.js' --watch src --watch main.js --watch index.js -e js",
+    "debug": "node --inspect src/index.js",
+    "start": "node src/index.js"
   },
   "license": "MIT",
   "dependencies": {
@@ -13,6 +15,7 @@
     "casperjs": "^1.1.4",
     "cheerio": "^1.0.0-rc.2",
     "cli-progress": "^1.8.0",
+    "dotenv": "^5.0.1",
     "error-to-json": "^1.1.0",
     "express": "^4.16.3",
     "fs-extra": "^5.0.0",
